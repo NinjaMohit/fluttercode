@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: TODOAppUI(),
     );
   }
@@ -214,6 +215,10 @@ class _TODOAppUIState extends State<TODOAppUI> {
                       dateController.clear();
                       descriptionController.clear();
                       titleController.clear();
+
+                      print(
+                          "---------------------length of todolist---------------------");
+                      print(todoList.length);
                     },
                     child: Text(
                       "Submit",
@@ -234,31 +239,29 @@ class _TODOAppUIState extends State<TODOAppUI> {
 
   Future<void> initialize() async {
     await databasecreate();
-    List<ToDoModelClass> data = await getData();
-    setState(() {
-      todoList = data;
-    });
+    //List<ToDoModelClass> data = await getData();
+    todoList = await getData();
+    setState(() {});
+    print(
+        "   -------------------------length of todolist-------------------------");
+    print(todoList.length);
   }
 
   List<ToDoModelClass> todoList = [];
-
-  Future initializeTheData() async {
-    await databasecreate();
-    await getData();
-    setState(() async {
-      print(await getData());
-    });
-  }
 
   @override
   void initState() {
     print("IN INITSTATE");
     super.initState();
-    initializeTheData();
+    // initializeTheData();
     initialize();
+    print("length of todolist");
+    print(todoList.length);
   }
 
   void submit(bool doedit, [ToDoModelClass? toDoModelObj]) {
+    print("length of todolist");
+    print(todoList.length);
     if (titleController.text.trim().isNotEmpty &&
         descriptionController.text.trim().isNotEmpty &&
         dateController.text.trim().isNotEmpty) {

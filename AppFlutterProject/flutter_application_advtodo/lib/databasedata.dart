@@ -188,6 +188,10 @@ Future<List<ToDoModelClass>> getData() async {
   print("**************************************In MODEL CLASS");
   final localDB = await database;
   List<Map<String, dynamic>> dataMap = await localDB.query("tododata");
+
+  print(
+      "****************************length of data ******************************");
+  print(dataMap.length);
   return List.generate(dataMap.length, (i) {
     return ToDoModelClass(
       idNo: dataMap[i]['idNo'],
@@ -199,13 +203,6 @@ Future<List<ToDoModelClass>> getData() async {
 }
 
 dynamic database;
-// List<ToDoModelClass> todoList = List.empty(growable: true);
-// Future allToList() async {
-//   List<ToDoModelClass> list = await getData();
-//   for (ToDoModelClass a in list) {
-//     todoList.add(a);
-//   }
-// }
 
 Future<void> databasecreate() async {
   print("**********************************  In VOID MAIN");
